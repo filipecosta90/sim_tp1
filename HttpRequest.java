@@ -30,11 +30,11 @@ public class HttpRequest {
     } catch (IOException e) {
       System.out.println("Error reading request line: " + e);
     }
-
+    //        Request-Line   = Method SP Request-URI SP HTTP-Version CRLF
     String[] tmp = firstLine.split(" ");
-    method = /* Fill in */;
-    URI = /* Fill in */;
-    version = /* Fill in */;
+    method = tmp[0]; /* Fill in */
+    URI = tmp[1]; /* Fill in */
+    version = tmp[2];/* Fill in */
 
     System.out.println("URI is: " + URI);
 
