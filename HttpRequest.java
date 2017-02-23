@@ -39,7 +39,7 @@ public class HttpRequest {
     System.out.println("URI is: " + URI);
 
     if (!method.equals("GET")) {
-      System.out.println("Error: Method not GET");
+      System.out.println("Error: Method not GET: " + method);
     }
     try {
       String line = from.readLine();
@@ -53,9 +53,12 @@ public class HttpRequest {
             String[] tmp2 = tmp[1].split(":");
             host = tmp2[0];
             port = Integer.parseInt(tmp2[1]);
+            System.out.println("\tUsing port: " + port );
+            
           } else {
             host = tmp[1];
             port = HTTP_PORT;
+            System.out.println("\tUsing standard port: " + port );
           }
         }
         line = from.readLine();

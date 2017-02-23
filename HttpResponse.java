@@ -50,7 +50,8 @@ public class HttpResponse {
         if ( line.startsWith("Content-Length") || line.startsWith("Content-length") ) {
           String[] tmp = line.split(" ");
           length = Integer.parseInt(tmp[1]);
-            }
+          System.out.println("Content Length: " + length);
+        }
         line = fromServer.readLine();
       }
     } catch (IOException e) {
@@ -66,8 +67,10 @@ public class HttpResponse {
       /* If we didn't get Content-Length header, just loop until
        * the connection is closed. */
       if (length == -1) {
+        System.out.println("## We didn't get content length");
         loop = true;
       }
+
 
       /* Read the body in chunks of BUF_SIZE and copy the chunk
        * into body. Usually replies come back in smaller chunks
@@ -86,6 +89,7 @@ public class HttpResponse {
         for (int i = 0; 
             i < res && (i + bytesRead) < MAX_OBJECT_SIZE; 
             i++) {
+          body[i+bytesRead] = buf[i];
           /* Fill in */
             }
         bytesRead += res;
