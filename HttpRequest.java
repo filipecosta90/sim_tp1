@@ -36,10 +36,9 @@ public class HttpRequest {
     URI = tmp[1]; /* Fill in */
     version = tmp[2];/* Fill in */
 
-    System.out.println("URI is: " + URI);
-
     if (!method.equals("GET")) {
       System.out.println("Error: Method not GET: " + method);
+      System.out.println("first line :" + firstLine + " method: " + method + " URI: " + URI + " version: " + version );
     }
     try {
       String line = from.readLine();
@@ -78,6 +77,11 @@ public class HttpRequest {
   /** Return port for server */
   public int getPort() {
     return port;
+  }
+
+ /** Return URI for server */
+  public String getURI() {
+    return URI;
   }
 
   /**

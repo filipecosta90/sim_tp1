@@ -23,11 +23,10 @@ public class HttpResponse {
   String headers = "";
   /* Body of reply */
   byte[] body = new byte[MAX_OBJECT_SIZE];
-
+  int length=-1;
   /** Read response from server. */
   public HttpResponse(DataInputStream fromServer) {
     /* Length of the object */
-    int length = -1;
     boolean gotStatusLine = false;
 
     /* First read status line and response headers */
@@ -70,7 +69,6 @@ public class HttpResponse {
         System.out.println("## We didn't get content length");
         loop = true;
       }
-
 
       /* Read the body in chunks of BUF_SIZE and copy the chunk
        * into body. Usually replies come back in smaller chunks
@@ -115,5 +113,13 @@ public class HttpResponse {
     res += CRLF;
 
     return res;
+  }
+
+  public int getBodyLength(){
+ return length;
+  }
+
+  public byte[] getBody(){
+    return body;
   }
 }

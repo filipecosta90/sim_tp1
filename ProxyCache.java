@@ -12,12 +12,21 @@ import java.util.*;
 public class ProxyCache {
   /** Port for the proxy */
   private static int port;
+    
+    private static int maxConnections;
+    
   /** Socket for client connections */
   private static ServerSocket socket;
 
+  /** Map for caching requested objects **/
+  private static  Map<String, byte[]> cached_request_objects;
+
+    
   /** Create the ProxyCache object and the socket */
   public static void init(int p) {
     port = p;
+      maxConnections=10;
+    cached_request_objects = new HashMap<String, byte[]>();
     try {
       socket = new ServerSocket(port) ; /* Fill in */
     } catch (IOException e) {
@@ -34,11 +43,12 @@ public class ProxyCache {
     /* Process request. If there are any exceptions, then simply
      * return and end this request. This unfortunately means the
      * client will hang for a while, until it timeouts. */
-
+    String current_URI_object;
     /* Read request */
     try {
       BufferedReader fromClient = new BufferedReader(new InputStreamReader(client.getInputStream())) ; /* Fill in */
       request = new HttpRequest(fromClient);/* Fill in */
+      current_URI_object = request.getURI();
     } catch (IOException e) {
       System.out.println("Error reading request from client: " + e);
       return;
@@ -46,8 +56,11 @@ public class ProxyCache {
     /* Send request to server */
     try {
       /* Open socket and write request to socket */
-      //      URI uri = request.uri();
+
       server = new Socket(request.getHost(), request.getPort() ); /* Fill in */
+      if ( cached_request_objects.containsKey(request.getURI() ) ){
+        System.out.println("requested object is already cached: " + request.getURI());
+      }
       DataOutputStream toServer = new DataOutputStream(server.getOutputStream());/* Fill in */
       toServer.writeBytes(request.toString());/* Fill in */
     } catch (UnknownHostException e) {
@@ -69,6 +82,10 @@ public class ProxyCache {
       server.close();
       /* Insert object into the cache */
       /* Fill in (optional exercise only) */
+      if ( ! cached_request_objects.containsKey(request.getURI()) && response.getBodyLength() > 0 ){
+        System.out.println("Inserting a new object in cache of size " + response.getBodyLength() + " from URI: " + request.getURI());
+        cached_request_objects.put(request.getURI(),response.getBody());
+      }
     } catch (IOException e) {
       System.out.println("Error writing response to client: " + e);
     }
@@ -88,24 +105,30 @@ public class ProxyCache {
       System.out.println("Please give port number as integer.");
       System.exit(-1);
     }
-
     init(myPort);
 
-    /** Main loop. Listen for incoming connections and spawn a new
-     * thread for handling them */
-    Socket client = null;
-
-    while (true) {
-      try {
-        client = socket.accept(); /* Fill in */
-        handle(client);
-      } catch (IOException e) {
-        System.out.println("Error reading request from client: " + e);
-        /* Definitely cannot continue processing this request,
-         * so skip to next iteration of while loop. */
-        continue;
-      }
-    }
-
+      
+  
+          System.out.println("Proxy server listening on port: " + myPort);
+          Socket server;
+          int i=0;
+          while((i++ < maxConnections) || (maxConnections == 0)){
+              //doComms connection;
+              
+              try{
+              server = socket.accept();
+              handle(server);
+              }
+              catch (IOException ioe) {
+                  System.out.println("Error reading request from client: " + ioe);
+                  /* Definitely cannot continue processing this request,
+                   * so skip to next iteration of while loop. */
+                  continue;
+              }
+              //doComms conn_c= new doComms(server);
+              //Thread t = new Thread(conn_c);
+              //t.start();
+          }
   }
 }
+
