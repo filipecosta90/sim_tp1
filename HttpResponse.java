@@ -1,9 +1,11 @@
+
 /**
  * HttpResponse - Handle HTTP replies
  *
  * $Id: HttpResponse.java,v 1.2 2003/11/26 18:12:42 kangasha Exp $
  *
  */
+
 
 import java.io.*;
 import java.net.*;
