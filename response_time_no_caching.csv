@@ -1,0 +1,11 @@
+uri,cached,request time ms,response size bytes,bits per sec
+http://www.theuselessweb.com/,false,420,4120,78476.19047619047
+http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js,false,115,20093,1397773.9130434783
+http://fonts.googleapis.com/css?family=Josefin+Slab,false,141,-1,0.0
+http://www.theuselessweb.com/js/uselessweb.js?v=1,false,389,7649,157305.91259640103
+http://www.theuselessweb.com/css/style.css,false,391,3728,76276.21483375959
+http://www.theuselessweb.com/js/libs/swfobject.js,false,393,10220,208040.71246819338
+http://www.theuselessweb.com/js/libs/utils.js,false,487,145,2381.930184804928
+http://platform.twitter.com/widgets.js,false,5729,32900,45941.70012218537
+http://pagead2.googlesyndication.com/pagead/js/r20170306/r20170110/show_ads_impl.js,false,889,67057,603437.570303712
+http://platform.twitter.com/widgets/tweet_button.a0ec3119d8db2bc5422f2144c89ad7a9.en.html,false,164,11628,567219.512195122

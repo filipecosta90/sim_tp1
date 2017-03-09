@@ -51,7 +51,7 @@ public class HttpResponse {
         if ( line.startsWith("Content-Length") || line.startsWith("Content-length") ) {
           String[] tmp = line.split(" ");
           length = Integer.parseInt(tmp[1]);
-          System.out.println("Content Length: " + length);
+//          System.out.println("Content Length: " + length);
         }
         line = fromServer.readLine();
       }
