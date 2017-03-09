@@ -27,6 +27,7 @@ public class HttpResponse {
   byte[] body = new byte[MAX_OBJECT_SIZE];
   int length=-1;
   /** Read response from server. */
+
   public HttpResponse(DataInputStream fromServer) {
     /* Length of the object */
     boolean gotStatusLine = false;
@@ -41,7 +42,6 @@ public class HttpResponse {
         } else {
           headers += line + CRLF;
         }
-
         /* Get length of content as indicated by
          * Content-Length header. Unfortunately this is not
          * present in every response. Some servers return the
@@ -98,8 +98,6 @@ public class HttpResponse {
       System.out.println("Error reading response body: " + e);
       return;
     }
-
-
   }
 
   /**
@@ -118,7 +116,7 @@ public class HttpResponse {
   }
 
   public int getBodyLength(){
- return length;
+    return length;
   }
 
   public byte[] getBody(){
